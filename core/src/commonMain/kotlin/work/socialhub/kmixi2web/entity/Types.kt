@@ -24,7 +24,7 @@ enum class PostMaskType {
 enum class PostPublishingType {
     UNSPECIFIED,
     FOLLOW_AND_COMMUNITY,
-    PROFILE_ONLY,
+    NOT_PUBLISHING,
 }
 
 @Serializable

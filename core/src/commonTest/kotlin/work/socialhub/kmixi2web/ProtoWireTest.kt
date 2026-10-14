@@ -85,12 +85,12 @@ class ProtoWireTest {
     }
 
     @Test
-    fun createPostRequestEncodesProfileOnlyPublishingType() {
+    fun createPostRequestEncodesNotPublishingPublishingType() {
         val encoded = proto.encodeToByteArray(
             CreatePostRequest.serializer(),
             CreatePostRequest(
                 text = "hi",
-                publishingType = PostPublishingType.PROFILE_ONLY,
+                publishingType = PostPublishingType.NOT_PUBLISHING,
             ),
         )
 
