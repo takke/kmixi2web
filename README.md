@@ -302,6 +302,9 @@ so the room ID has to be read back from the returned message. Use
 `sendMessageToRoom(...)` for a room you already know and `sendGroupMessage(...)`
 to open a group room with several personas.
 
+Rooms that other personas invited you to can be listed with
+`getRequestedChatRooms(...)` and accepted with `acceptChatRoom(...)`.
+
 ### Browser JavaScript
 
 Browsers cannot set a cross-origin `Cookie` header. Put a same-origin proxy in

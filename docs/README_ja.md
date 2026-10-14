@@ -299,6 +299,9 @@ mixi2.chat().sendDirectMessage(
 戻り値のメッセージから取得します。既知のルームには `sendMessageToRoom(...)`、
 複数の相手とグループルームを作成する場合は `sendGroupMessage(...)` を使用します。
 
+他の相手から招待されたルームは `getRequestedChatRooms(...)` で一覧を取得し、
+`acceptChatRoom(...)` で承認できます。
+
 ### JavaScript ブラウザ
 
 ブラウザはクロスオリジンの `Cookie` ヘッダーを直接設定できません。
