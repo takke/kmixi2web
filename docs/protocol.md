@@ -80,8 +80,13 @@ hashtag timelines add `hashtag` at field 1 and `media_only` at field 2.
 
 `Post` currently has fields 1 through 44. The library models the stable reading
 surface including IDs, timestamps, text, counts, media, reply/repost/quote
-references, reactions, links, mentions, decorations, mask state, polls, and the
-imported-post metadata below. Unknown fields are skipped by protobuf decoding.
+references, reactions, links, mentions, decorations, mask state, polls, the
+edited flag, and the imported-post metadata below. Unknown fields are skipped by
+protobuf decoding.
+
+`is_edited` (36, bool) is true when the post has been edited. The web client
+shows a pencil icon titled "編集済み" (edited) in the post header. The edit time
+and edit history are not part of `Post`.
 
 Posts imported from an X archive carry the original posting date and the import
 source. The web client renders them as "<date> memories · Imported from X".
@@ -92,8 +97,8 @@ source. The web client renders them as "<date> memories · Imported from X".
 | `import_source` | 42 | enum `PostImportSource` (0 `UNSPECIFIED`, 1 `X_ARCHIVE`) |
 
 Other fields observed in the current web client but not modeled yet:
-`post_attachments` (35), `is_edited` (36), `media_layout` (37), `post_label` (39),
-`subject` (41) and `is_mute_word_matched` (44).
+`post_attachments` (35), `media_layout` (37), `post_label` (39), `subject` (41)
+and `is_mute_word_matched` (44).
 
 ### Reactions
 

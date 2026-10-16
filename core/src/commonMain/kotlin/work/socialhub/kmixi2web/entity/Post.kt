@@ -105,6 +105,13 @@ class Post(
     @ProtoNumber(34)
     var publishingType: Int = 0,
     /**
+     * True if the post has been edited after it was created. The web client
+     * shows an "edited" (pencil) icon in the post header. The edit time and
+     * edit history are not provided.
+     */
+    @ProtoNumber(36)
+    var isEdited: Boolean = false,
+    /**
      * Original posting date of an imported post (the web client shows it as
      * "<date> memories"). Only the calendar date is provided, not the time.
      * Null for posts created on mixi2.
