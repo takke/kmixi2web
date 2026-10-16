@@ -78,10 +78,14 @@ hashtag timelines add `hashtag` at field 1 and `media_only` at field 2.
 | `mask_caption` | 11 | optional string |
 | `publishing_type` | 12 | optional enum |
 
-`Post` currently has fields 1 through 34. The library models the stable reading
+`Post` currently has fields 1 through 44. The library models the stable reading
 surface including IDs, timestamps, text, counts, media, reply/repost/quote
-references, reactions, links, mentions, decorations, and mask state. Unknown
-fields are skipped by protobuf decoding.
+references, reactions, links, mentions, decorations, mask state, and the edited
+flag below. Unknown fields are skipped by protobuf decoding.
+
+`is_edited` (36, bool) is true when the post has been edited. The web client
+shows a pencil icon titled "編集済み" (edited) in the post header. The edit time
+and edit history are not part of `Post`.
 
 ### Reactions
 

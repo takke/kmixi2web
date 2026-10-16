@@ -96,4 +96,11 @@ class Post(
     var maskCaption: String? = null,
     @ProtoNumber(34)
     var publishingType: Int = 0,
+    /**
+     * True if the post has been edited after it was created. The web client
+     * shows an "edited" (pencil) icon in the post header. The edit time and
+     * edit history are not provided.
+     */
+    @ProtoNumber(36)
+    var isEdited: Boolean = false,
 )
