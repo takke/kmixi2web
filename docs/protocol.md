@@ -80,7 +80,7 @@ hashtag timelines add `hashtag` at field 1 and `media_only` at field 2.
 
 `Post` currently has fields 1 through 44. The library models the stable reading
 surface including IDs, timestamps, text, counts, media, reply/repost/quote
-references, reactions, links, mentions, decorations, mask state, and the
+references, reactions, links, mentions, decorations, mask state, polls, and the
 imported-post metadata below. Unknown fields are skipped by protobuf decoding.
 
 Posts imported from an X archive carry the original posting date and the import
@@ -93,7 +93,7 @@ source. The web client renders them as "<date> memories · Imported from X".
 
 Other fields observed in the current web client but not modeled yet:
 `post_attachments` (35), `is_edited` (36), `media_layout` (37), `post_label` (39),
-`poll` (40), `subject` (41) and `is_mute_word_matched` (44).
+`subject` (41) and `is_mute_word_matched` (44).
 
 ### Reactions
 
@@ -262,6 +262,7 @@ currently the only item type.
 | `GetQuotePosts` | post ID, limit, cursor | posts, next cursor, has-next flag |
 | `GetReactionPosts` | reaction type, limit, cursor | posts, next cursor, has-next flag |
 | `GetRepostingPersonas` | post ID, limit, cursor | personas, next cursor, has-next flag |
+| `VotePoll` | post ID, option index | updated poll |
 
 Bookmark requests use `post_id` at field 1 and return the updated `Post`.
 `DeleteRepostRequest` instead takes `reference_post_id` — the reposted post, not
@@ -273,6 +274,20 @@ The three paged lookups share `post_id`/`reaction_type` (1), `limit` (2), and
 and `has_next` (3).
 
 `GetReactionPosts` reads back the active persona's own reactions.
+
+A post can carry a `Poll` at field 40. `Poll` uses `poll_id` (1), `options` (2),
+`total_votes` (3), optional `expires_at` (4), `is_closed` (5),
+`can_view_results` (6), and optional `voted_option_index` (7). Each
+`PollOption` has `index` (1), `text` (2), `vote_count` (3), and `percentage`
+(4, a `float` from 0 to 100). Until the reader votes, `can_view_results` is
+false and the counts are zero; the web client then shows the options as vote
+buttons, and shows the results once `can_view_results` is true (after voting,
+for the author, or once the poll is closed). `VotePollRequest` takes `post_id`
+(1) and `option_index` (2), and `VotePollResponse` returns the updated `poll`
+(1). Polls are created through `CreatePostRequest.poll` (18), a
+`CreatePollParams` with `options` (1) and optional `duration_seconds` (2), which
+is not modeled yet.
+
 `PostReactionType` values are non-contiguous: unknown `0`, reply `100`, repost
 `101`, quote `102`, like `200`, and bookmark `201`. The client uses the same
 custom-serializer approach as notification activity types, so like encodes as

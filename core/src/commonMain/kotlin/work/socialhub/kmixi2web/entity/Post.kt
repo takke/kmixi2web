@@ -115,6 +115,12 @@ class Post(
      * Raw [PostImportSource] value. 0 (UNSPECIFIED) for posts created on
      * mixi2, 1 (X_ARCHIVE) for posts imported from an X archive.
      */
+    /**
+     * Poll attached to this post. Vote with
+     * [work.socialhub.kmixi2web.api.PostResource.votePoll].
+     */
+    @ProtoNumber(40)
+    var poll: Poll? = null,
     @ProtoNumber(42)
     var importSource: Int = 0,
 )
