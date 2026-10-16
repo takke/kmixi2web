@@ -96,4 +96,10 @@ class Post(
     var maskCaption: String? = null,
     @ProtoNumber(34)
     var publishingType: Int = 0,
+    /**
+     * Poll attached to this post. Vote with
+     * [work.socialhub.kmixi2web.api.PostResource.votePoll].
+     */
+    @ProtoNumber(40)
+    var poll: Poll? = null,
 )
